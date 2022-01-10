@@ -1,9 +1,3 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -12,81 +6,32 @@ import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
 import axios from 'axios';
 import { routes } from './router';
-import App from './components/App.vue';
-
-import { 
-    BootstrapVue,
-    IconsPlugin,
-    /*NavbarPlugin,
-    AlertPlugin, 
-    AspectPlugin, 
-    AvatarPlugin,
-    CardPlugin,
-    FormPlugin,
-    LinkPlugin,
-    TimePlugin,
-    ImagePlugin,
-    ModalPlugin,
-    NavPlugin,
-    ButtonPlugin,
-    ToastPlugin,
-    TablePlugin,
-    ButtonGroupPlugin,
-    LayoutPlugin*/
-} from 'bootstrap-vue';
-
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import '@fortawesome/fontawesome-free/js/all.js';
 import CountryFlag from 'vue-country-flag';
 import VueCountryCode from "vue-country-code-select";
-
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
+import { mobileCheck } from './helper';
+
+import App from './components/App.vue';
+import Vue from 'vue';
 Vue.component('country-flag', CountryFlag);
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+Vue.mixin({
+    methods: {
+        mobileCheck: mobileCheck
+    }
+});
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueCountryCode);
-
-/*Vue.use(NavbarPlugin);
-Vue.use(AlertPlugin);
-Vue.use(AspectPlugin);
-Vue.use(AvatarPlugin);
-
-Vue.use(CardPlugin);
-Vue.use(FormPlugin);
-Vue.use(LinkPlugin);
-Vue.use(TimePlugin);
-Vue.use(ImagePlugin);
-Vue.use(ModalPlugin);
-Vue.use(NavPlugin);
-Vue.use(ButtonPlugin);
-Vue.use(ToastPlugin);
-Vue.use(TablePlugin);
-Vue.use(ButtonGroupPlugin);
-Vue.use(LayoutPlugin);*/
-
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
+
 
 const router = new VueRouter({
     mode: 'history',
